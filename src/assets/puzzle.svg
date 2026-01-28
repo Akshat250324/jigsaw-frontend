@@ -1,0 +1,33 @@
+<svg
+  width="220"
+  height="220"
+  viewBox="0 0 220 220"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    width="220"
+    height="220"
+    rx="32"
+    fill="#E0F2FE"
+  />
+
+  <path
+    d="M50 50
+       H90
+       C90 38 130 38 130 50
+       H170
+       V90
+       C158 90 158 130 170 130
+       V170
+       H130
+       C130 182 90 182 90 170
+       H50
+       V130
+       C62 130 62 90 50 90
+       Z"
+    fill="#FCD34D"
+  />
+
+  <circle cx="150" cy="60" r="6" fill="#60A5FA" />
+  <circle cx="70" cy="150" r="6" fill="#34D399" />
+</svg>

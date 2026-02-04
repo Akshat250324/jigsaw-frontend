@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 
 import PuzzleBoard from "../components/PuzzleBoard";
 import { createPuzzle, isSolved } from "../utils/puzzleUtils";
 
 const Game = () => {
-  const navigate = useNavigate();
   const { state } = useLocation();
 
-  /* ---------- Route Guard ---------- */
-  if (!state?.image || !state?.gridSize) {
-    navigate("/setup", { replace: true });
-    return null;
+  /* ---------- HARD ROUTE GUARD (SAFE) ---------- */
+  if (!state || !state.image || !state.gridSize) {
+    return <Navigate to="/setup" replace />;
   }
 
   const { image, gridSize, difficulty } = state;
+
 
   /* ---------- Puzzle State ---------- */
   const [pieces, setPieces] = useState([]);
@@ -65,7 +64,10 @@ const Game = () => {
 
     if (selected !== index) {
       const updated = [...pieces];
-      [updated[selected], updated[index]] = [updated[index], updated[selected]];
+      [updated[selected], updated[index]] = [
+        updated[index],
+        updated[selected],
+      ];
       setPieces(updated);
       setMoves((m) => m + 1);
     }
@@ -125,13 +127,11 @@ const Game = () => {
 
         {/* -------- Side Panel -------- */}
         <div className="w-full lg:w-[280px] flex flex-col gap-6">
-          {/* Controls */}
           <div className="flex justify-between bg-white/70 rounded-xl p-3 shadow-sm">
             <button onClick={() => setShowReference(true)}>🖼 Reference</button>
             <div className="font-mono">{formatTime()}</div>
           </div>
 
-          {/* Info Card */}
           <div className="bg-white/70 rounded-xl p-4 text-sm space-y-2">
             <div>
               <strong>Difficulty:</strong> {difficulty}
@@ -144,7 +144,6 @@ const Game = () => {
             </div>
           </div>
 
-          {/* Instruction / Win */}
           {!solved && (
             <p className="text-sm text-slate-600 text-center">
               Tap or drag pieces to swap and complete the puzzle.
@@ -175,11 +174,6 @@ const Game = () => {
               </div>
             </div>
           )}
-
-          {/* Filler for big screens */}
-          <div className="hidden lg:block text-xs text-slate-500 text-center">
-            🧩 Focus, relax, and enjoy solving
-          </div>
         </div>
       </div>
 

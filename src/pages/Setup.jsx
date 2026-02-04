@@ -1,7 +1,7 @@
 // src/pages/Setup.jsx
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchImagesByCategory } from "../js/image";
+import { getImagesByCategory } from "../js/image";
 
 /* ================= CONFIG ================= */
 
@@ -53,7 +53,7 @@ const Setup = () => {
     }
 
     setLoading(true);
-    fetchImagesByCategory(activeCategory)
+    getImagesByCategory(activeCategory)
       .then((data) => {
         cacheRef.current[activeCategory] = data;
         setImages(data);
@@ -201,7 +201,9 @@ const Setup = () => {
                 </div>
 
                 <button
-                  onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
+                  onClick={() =>
+                    setPage(Math.min(totalPages - 1, page + 1))
+                  }
                   disabled={page === totalPages - 1}
                   className="px-4 py-2 bg-white rounded-lg shadow disabled:opacity-50"
                 >
@@ -213,19 +215,7 @@ const Setup = () => {
         </div>
 
         {/* ================= RIGHT ================= */}
-        <div
-          className="
-            lg:w-[35%]
-            max-w-[420px]
-            w-full
-            rounded-2xl
-            p-6
-            shadow-sm
-            flex flex-col gap-6
-            bg-transparent
-            lg:bg-white/60
-          "
-        >
+        <div className="lg:w-[35%] max-w-[420px] w-full rounded-2xl p-6 shadow-sm flex flex-col gap-6 bg-transparent lg:bg-white/60">
           {/* Difficulty */}
           <div>
             <p className="font-semibold text-slate-700 mb-3">Difficulty</p>
@@ -289,19 +279,6 @@ const Setup = () => {
           >
             Start Puzzle
           </button>
-        </div>
-      </div>
-
-      {/* ================= BOTTOM ================= */}
-      <div className="mt-16 max-w-5xl mx-auto grid sm:grid-cols-3 gap-6 text-center text-slate-600 text-sm">
-        <div className="bg-white/60 rounded-xl p-4">
-          🧩 Choose image & difficulty
-        </div>
-        <div className="bg-white/60 rounded-xl p-4">
-          💡 Start with corner pieces
-        </div>
-        <div className="bg-white/60 rounded-xl p-4">
-          🎯 Relax & enjoy puzzles
         </div>
       </div>
     </div>
